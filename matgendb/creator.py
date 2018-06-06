@@ -25,7 +25,7 @@ from pymongo import MongoClient
 import gridfs
 
 from pymatgen.apps.borg.hive import AbstractDrone
-from pymatgen.analysis.structure_analyzer import VoronoiCoordFinder
+from pymatgen.analysis.local_env import VoronoiNN
 from pymatgen.core.structure import Structure
 from pymatgen.core.composition import Composition
 from pymatgen.io.vasp import Vasprun, Incar, Kpoints, Potcar, Poscar, \
@@ -34,7 +34,7 @@ from pymatgen.io.cif import CifWriter
 from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 from pymatgen.analysis.bond_valence import BVAnalyzer
 from monty.io import zopen
-from pymatgen.matproj.rest import MPRester
+from pymatgen.ext.matproj import MPRester
 from pymatgen.entries.computed_entries import ComputedEntry
 from pymatgen.analysis.structure_analyzer import oxide_type
 from monty.json import MontyEncoder
@@ -723,11 +723,11 @@ def get_coordination_numbers(d):
         "coordination": number}, ...].
     """
     structure = Structure.from_dict(d["output"]["crystal"])
-    f = VoronoiCoordFinder(structure)
+    f = VoronoiNN()
     cn = []
     for i, s in enumerate(structure.sites):
         try:
-            n = f.get_coordination_number(i)
+            n = f.get_cn(structure, i)
             number = int(round(n))
             cn.append({"site": s.as_dict(), "coordination": number})
         except Exception:

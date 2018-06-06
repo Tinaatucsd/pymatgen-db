@@ -21,19 +21,14 @@ Other pages
 Change Log
 ==========
 
-v0.7.0
-------
-* Fix deprecation.
-* Ensure oxide types are handled properly in creating docs and querying for
-  them.
+v2018.2.21
+----------
+1. Fix --tag option in mgdb to support multiple tags.
 
-v0.6.2
-------
-* Minor bug fixes.
-
-v0.6.1
-------
-* Removed Materials Genomics UI. Pls use Flamyngo as an alternative.
+v2018.1.4
+---------
+* Date based versioning in line with pymatgen.
+* Fix deprecated code.
 
 Getting pymatgen-db
 ===================
